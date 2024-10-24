@@ -9,7 +9,13 @@ An S-Op that contains the indices in reverse order
 ```
 reverse_indices = length - indices - 1
 ```
- 
+
+```
+>> reverse_indices;
+     s-op: reverse_indices
+         Example: reverse_indices("hello") = [4, 3, 2, 1, 0] (ints)
+```
+
 A function that rotates a sequence by a given number of characters
 
 ```
@@ -19,13 +25,19 @@ def rotate(seq, num) {
 }
 ```
 
+```
+>> rotate(tokens, 2);
+     s-op: out
+         Example: out("hello") = [l, o, h, e, l] (strings)
+```
+
 A function that swaps every element in the sequence with its neighbor
 
 ```
 def _swap(seq) {
     return aggregate(select(indices, indices + 1, ==), seq, "$") 
-    if indices ;% 2 == 0
-    else aggregate(select(indices, indices-1, ==), seq, "$")
+    if indices % 2 == 0 
+    else aggregate(select(indices, indices-1, ==), seq, "$");
 }
 def swap(seq) {
     return aggregate(select(indices, indices, ==), seq, "$")
@@ -34,14 +46,31 @@ def swap(seq) {
 }
 ```
 
+```
+>> swap(tokens);
+     s-op: out
+         Example: out("hello") = [e, h, l, l, o] (strings)
+```
+
 
 A function that returns the max token in a sequence
 
 ```
-sorted = sort(tokens, tokens);
 def max_token(seq) {
-    return load_from_location(sorted, select_from_last);
+    select_earlier_in_sorted = 
+        select(seq,seq,<) or (select(seq,seq,==) and select(indices,indices,<));
+    target_position = 
+        selector_width(select_earlier_in_sorted);
+    select_new_val = 
+        select(target_position,indices,==);
+    return aggregate(select_new_val,seq)[-1][0];
 }
+```
+
+```
+>> max_token(tokens);
+     s-op: out
+         Example: out("hello") = [o]*5 (strings)
 ```
 
 A function that performs sequence reversal autogeneratively
@@ -52,6 +81,12 @@ def autogen(seq) {
     dollar_sign_index = aggregate(dollar_sign_location, indices);
     return aggregate((select(indices, dollar_sign_index, <=) and select(indices, indices, ==)) or (select(indices, dollar_sign_index, <) and select(indices, dollar_sign_index*2 - indices, ==)), seq, "");
 }
+```
+
+```
+>> autogen(tokens);
+     s-op: out
+         Example: out("hello$     ") = [h, e, l, l, o, $, o, l, l, e, h] (strings)
 ```
 
 A function that counts the number of times a certain token appears in the input 
@@ -65,7 +100,11 @@ def count(seq,atom) {
 }
 ```
 
+```
+count(tokens, "l")
 
+Example: out("hello") = [2]*5 (ints)
+```
 A function that counts the number of times a certain token has appeared in the 
 input sequence so far.
 
@@ -73,6 +112,12 @@ input sequence so far.
 def howmany(seq, n) {
     return round((indices+1) * aggregate(select(indices, indices, <=), indicator(seq==n)));
 }
+```
+
+```
+howmany(tokens, "l");
+     s-op: out
+         Example: out("hello") = [0, 0, 1, 2, 2] (ints)
 ```
 
 A function that draws a smiley face!
