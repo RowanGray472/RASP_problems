@@ -160,4 +160,6 @@ def smiley_face() {
                          J |                                        
 
 ```
-<img src=/smiley_face.png width=300px alt="A smiley face drawing using rasp"/>
+In case you want to see it in blue!
+
+<img src=/smiley_face.png width=1200px alt="A smiley face drawing using rasp"/>
