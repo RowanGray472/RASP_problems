@@ -88,5 +88,7 @@ def smiley_face() {
     return (draw_point(6, 6) or draw_point(7, 6) or draw_point(12, 6) or draw_point(13, 6) or draw_point(7, 12) or draw_point(8, 13) or draw_point(9, 13) or draw_point(10, 13) or draw_point(11, 12) or draw_point(2, 10) or draw_point(2, 11) or draw_point(2, 12) or draw_point(3, 5) or draw_point(3, 15) or draw_point(4, 4) or draw_point(4, 16) or draw_point(5, 3) or draw_point(5, 17) or draw_point(6, 2) or draw_point(6, 18) or draw_point(7, 2) or draw_point(7, 18) or draw_point(8, 2) or draw_point(8, 18) or draw_point(9, 2) or draw_point(9, 18) or draw_point(10, 2) or draw_point(10, 18) or draw_point(11, 2) or draw_point(11, 18) or draw_point(12, 2) or draw_point(12, 18) or draw_point(13, 2) or draw_point(13, 18) or draw_point(14, 3) or draw_point(14, 17) or draw_point(15, 4) or draw_point(15, 16) or draw_point(16, 5) or draw_point(16, 15) or draw_point(17, 10) or draw_point(17, 11) or draw_point(17, 12));
 }
 ```
+<img src=/smiley_face.png width=300px />
+```
 
 
